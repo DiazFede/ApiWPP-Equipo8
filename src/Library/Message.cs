@@ -1,16 +1,18 @@
-namespace Library;
+using System;
 
-public class Message
+namespace Library
 {
-    protected Message(string from, string to)
+    public class Message
     {
-        this.From = from;
-        this.To = to;
+        public string From { get; private set; }
+        public string To { get; private set; }
+        public string Text { get; private set; }
+
+        public Message(string from, string to, string text)
+        {
+            From = from;
+            To = to;
+            Text = text;
+        }
     }
-
-    public string Text { get; set; }
-
-    public string From { get; }
-
-    public string To { get; }
 }
