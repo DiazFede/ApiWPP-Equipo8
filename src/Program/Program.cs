@@ -6,6 +6,8 @@ namespace Program
 {
     class Program
     {
+        public static object WhatsApp { get; private set; }
+
         static void Main(string[] args)
         {
             // Crear el contacto dueño
@@ -29,12 +31,19 @@ namespace Program
             
             // Enviar un WhatsApp a algunos contactos
             var whatsApp = new WhatsAppApi();
-            whatsApp.Send("+598<Poné tu teléfono acá>", "Hey! I'm using WhatsApp");
+            whatsApp.Send("+59891785770", "Hey! I'm using WhatsApp");
             
             Message mensaje2 = new WhatsAppMessage(contactoDueño, listaContactos);
             mensaje2.Text = "PruebaGrupo8/ Hola";
-            WhatsApp.Send(mensaje2);
+            WhatsAppChannel.Send(mensaje2);
 
+        }
+    }
+
+    internal class WhatsAppMessage : Message
+    {
+        public WhatsAppMessage(Phonebook from, string[] to) : base(from, to)
+        {
         }
     }
 }
