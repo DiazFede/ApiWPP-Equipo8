@@ -10,7 +10,8 @@ namespace Program
 
         static void Main(string[] args)
         {
-            
+            // Crear el dueño del teléfono
+            Contact owner = new Contact("Dueño");
 
             // Crear una lista de contactos (Phonebook)
             Phonebook phonebook = new Phonebook(owner);
