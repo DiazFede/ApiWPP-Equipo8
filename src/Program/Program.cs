@@ -1,47 +1,51 @@
 ﻿using System;
-using System.Collections.Generic;  
-using Library;  
+using System.Collections.Generic;
+using WhatsAppApiUCU;
+using Library;
 
 namespace Program
 {
     class Program
     {
-        private static string recipientName;
-
         static void Main(string[] args)
         {
             var whatsApp = new WhatsAppApi();
-            whatsApp.Send("+598 091785770", "Hey! I'm using WhatsApp");
-           
-            // Crear el dueño del teléfono
-            Contact owner = new Contact("Dueño","+598 091785770");
+            whatsApp.Send("+59891785771", "Hey! I'm using WhatsApp");
+            Contact owner = new Contact("Dueño", "+598091785770");
 
-            // Crear una lista de contactos (Phonebook)
             Phonebook phonebook = new Phonebook(owner);
 
-            // Crear y agregar contactos a la lista
-            Contact contact1 = new Contact("Amigo 1", "+598 091785770");
-            
-            // Agregar contactos a la lista
+            Contact contact1 = new Contact("Amigo 1", "+598091785771"); 
+
             phonebook.AddContact(contact1);
 
-            // Enviar un mensaje por WhatsApp a algunos contactos
             WhatsAppChannel whatsappChannel = new WhatsAppChannel();
-
-            Contact sender = owner; // El remitente es el dueño
+            
+            Contact sender = owner;
             string[] recipientNames = { "Amigo 1" };
             string messageText = "¡Hola desde WhatsApp!";
 
-            List<Contact> recipient = phonebook.Search(recipientNames);
-            Message message = new Message(sender.Name, recipientName, messageText);
-            whatsappChannel.Send(message);
+            // Busca el destinatario en el Phonebook
+            List<Contact> recipients = phonebook.Search(recipientNames);
+            if (recipients.Count > 0)
+            {
+                // Solo si se encontró al menos un destinatario
+                Contact recipient = recipients[0]; 
 
+                // Crea un mensaje y envíalo
+                Message message = new Message(sender.Name, recipient.Name, messageText);
+                whatsappChannel.Send(message);
 
-
-            Console.WriteLine("Mensajes enviados con éxito.");
+                Console.WriteLine("Mensaje enviado con éxito a " + recipient.Name);
+            }
+            else
+            {
+                Console.WriteLine("El destinatario no se encontró en la lista de contactos.");
+            }
         }
     }
 }
+
 
 
 
