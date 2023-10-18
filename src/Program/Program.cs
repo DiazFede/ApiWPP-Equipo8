@@ -10,6 +10,9 @@ namespace Program
 
         static void Main(string[] args)
         {
+            var whatsApp = new WhatsAppApi();
+            whatsApp.Send("+598<Poné tu teléfono acá>", "Hey! I'm using WhatsApp");
+           
             // Crear el dueño del teléfono
             Contact owner = new Contact("Dueño");
 
