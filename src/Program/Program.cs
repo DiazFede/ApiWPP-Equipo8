@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;  // Agrega esta directiva para List
-using Library;  // Asegúrate de que esta referencia esté configurada
+using System.Collections.Generic;  
+using Library;  
 
 namespace Program
 {
