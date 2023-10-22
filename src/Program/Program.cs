@@ -30,22 +30,36 @@ namespace Program
             listaContactos[1] = "Rodri";
             
             // Enviar un WhatsApp a algunos contactos
-            var whatsApp = new WhatsAppApi();
-            whatsApp.Send("+59891785770", "Hey! I'm using WhatsApp");
+            WhatsAppApi whatsAppi = new WhatsAppApi();
             
-            Message mensaje2 = new WhatsAppMessage(contactoDueño, listaContactos);
-            mensaje2.Text = "PruebaGrupo8/ Hola";
-            WhatsAppChannel.Send(mensaje2);
+           // Crear un mensaje
+             WhatsAppChannel whatsappChannel = new WhatsAppChannel();
+            Message mensaje = new Message(contactoDueño, listaContactos, "Hola rodri te hablo desde el vscode lol");
+            mensaje.MakeMessage(contactoDueño, listaContactos, "Hola rodri te hablo desde el vscode lol"); 
+            whatsappChannel.Send(mensaje);
+            foreach (var nombreContacto in listaContactos)
+            {
+                var contactosEncontrados = contactoDueño.Search(new string[] { nombreContacto });
+                if (contactosEncontrados.Count > 0)
+                {
+                    // Suponemos que tomamos el primer contacto encontrado
+                    var contacto = contactosEncontrados[0];
+                    mensaje.To = contacto.Name;
+
+                    // Enviar el mensaje utilizando WhatsAppApi (crea una instancia y llama al método Send)
+                    string resultado = whatsAppi.Send(contacto.Phone, mensaje.Text);
+                    Console.WriteLine($"Mensaje enviado a {contacto.Name} con resultado: {resultado}");
+                }
+                else
+                {
+                    Console.WriteLine($"No se encontró el contacto {nombreContacto} en la lista de contactos.");
+                }
 
         }
     }
 
-    internal class WhatsAppMessage : Message
-    {
-        public WhatsAppMessage(Phonebook from, string[] to) : base(from, to)
-        {
-        }
-    }
+   
+}
 }
 
 

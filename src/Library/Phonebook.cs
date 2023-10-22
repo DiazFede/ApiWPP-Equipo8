@@ -37,6 +37,11 @@ namespace Library
 
             return result;
         }
+
+        public static implicit operator string(Phonebook v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
